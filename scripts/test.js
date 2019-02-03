@@ -24,10 +24,10 @@ Plotly.plot(FIRST_TESTER,
     responsive
 );
 
-var intensity = [];
-var countries = [];
+let intensity = [];
+let countries = [];
 
-console.log(myData.length);
+//console.log(myData.length);
 
 myData.forEach(element => {
     intensity.push(element["intensity"]);
@@ -52,6 +52,33 @@ myData.forEach(element => {
         }
     }
 });
+
+console.log(testing);
+
+let ordered = [];
+
+Object.keys(testing).sort().forEach(function(key) {
+  ordered[key] = testing[key];
+});
+
+function sortObject(obj) {
+    var arr = [];
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+            arr.push({
+                'key': prop,
+                'value': obj[prop]
+            });
+        }
+    }
+    arr.sort(function(a, b) { return a.value - b.value; });
+    //arr.sort(function(a, b) { a.value.toLowerCase().localeCompare(b.value.toLowerCase()); }); //use this to sort as strings
+    return arr; // returns array
+}
+
+let sortable = sortObject(testing);
+console.log(sortable);
+// Get this into an object agian to plot it
   
 const x1 = {
     x: intensity,
@@ -71,11 +98,6 @@ Plotly.plot(SECOND_TESTER,
     layout2,
     responsive
 );
-
-const ordered = {};
-Object.keys(testing).sort().forEach(function(key) {
-  ordered[key] = testing[key];
-});
 
 const bar_data = [{
       x: Object.keys(ordered),
