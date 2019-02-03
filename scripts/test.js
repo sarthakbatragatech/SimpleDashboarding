@@ -15,6 +15,8 @@ const responsive = {responsive: true};
 
 FIRST_TESTER = document.getElementById('first_tester');
 SECOND_TESTER = document.getElementById('second_tester');
+THIRD_TESTER = document.getElementById('third_tester');
+
 
 Plotly.plot(FIRST_TESTER,
     data1,
@@ -39,19 +41,18 @@ var testing = {};
 
 myData.forEach(element => {
     let cur_country = element["country"];
-    if (cur_country != "") {
-
-        if (typeof(testing[cur_country]) == undefined) {
-            testing[cur_country] = element["intensity"];
-        } else {
-            testing[cur_country] += element["intensity"];
+    let cur_intensity = element["intensity"];
+    if(cur_country != "") {
+        if(cur_intensity != "") {
+            if (testing[cur_country] == undefined) {
+                testing[cur_country] = cur_intensity;
+            } else {
+                testing[cur_country] = testing[cur_country] + cur_intensity;
+            }
         }
-        console.log(testing);
     }
 });
-
-console.log(testing);
-
+  
 const x1 = {
     x: intensity,
     type: 'histogram',
@@ -71,6 +72,26 @@ Plotly.plot(SECOND_TESTER,
     responsive
 );
 
+const ordered = {};
+Object.keys(testing).sort().forEach(function(key) {
+  ordered[key] = testing[key];
+});
 
+const bar_data = [{
+      x: Object.keys(ordered),
+      y: Object.values(ordered),
+      type: 'bar',
+}];
+
+const layout3 = {
+    title: "Third Chart",
+    font: {size: 12},
+};
+
+Plotly.newPlot(THIRD_TESTER,
+    bar_data,
+    layout3,
+    responsive,
+);
 
 //console.log(subset);
