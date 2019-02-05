@@ -69,8 +69,11 @@ const data1 = [{
 }];
 
 const layout1 = {
-    title: "A simple and responsive chart",
+    title: "Heatmap of Sector wise Activity",
     font: {size: 12},
+    yaxis: {
+        automargin: true
+    },
   };
 
 const responsive = {responsive: true};
