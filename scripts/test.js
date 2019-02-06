@@ -7,6 +7,8 @@ THIRD_TESTER = document.getElementById('third_tester');
 let intensity = [];
 let countries = [];
 let sectors = [];
+let topics = [];
+let pestles = [];
 
 //console.log(myData.length);
 
@@ -20,20 +22,31 @@ myData.forEach(element => {
     if(element["sector"] != '') {
         sectors.push(element["sector"]);
     }
+    if(element["topic"] != '') {
+        topics.push(element["topic"]);
+    }
+    if(element["pestle"] != '') {
+        pestles.push(element["pestle"]);
+    }
 });
 
 let unique_countries = [... new Set(countries)];
 let unique_sectors = [... new Set(sectors)];
+let unique_topics = [... new Set(topics)];
+let unique_pestles = [... new Set(pestles)];
+
 unique_countries.sort();
 unique_sectors.sort();
+unique_topics.sort();
+unique_pestles.sort();
 
-//console.log(unique_sectors);
+//console.log(unique_topics);
 
-let heat = [];
+let heat1 = [];
 for (sector in unique_sectors) {
-    heat[unique_sectors[sector]] = [];
+    heat1[unique_sectors[sector]] = [];
     for (country in unique_countries) {
-        heat[unique_sectors[sector]][unique_countries[country]] = 0;
+        heat1[unique_sectors[sector]][unique_countries[country]] = 0;
     }
 };
 
@@ -41,15 +54,63 @@ for (sector in unique_sectors) {
 myData.forEach(element => {
         if((element["intensity"] != "") && (element["country"] != "")
                 && (element["sector"] != "" )) {
-                    heat[element["sector"]][element["country"]] += element["intensity"];
+                    heat1[element["sector"]][element["country"]] += element["intensity"];
         } 
 });
 
-let z = [];
+let z1 = [];
 for (let i=0; i < unique_sectors.length; i++) {
-    z[i] = [];
+    z1[i] = [];
     for (let j=0; j < unique_countries.length; j++) {
-        z[i][j] = heat[unique_sectors[i]][unique_countries[j]];
+        z1[i][j] = heat1[unique_sectors[i]][unique_countries[j]];
+    }
+}
+
+let heat2 = [];
+for (topic in unique_topics) {
+    heat2[unique_topics[topic]] = [];
+    for (country in unique_countries) {
+        heat2[unique_topics[topic]][unique_countries[country]] = 0;
+    }
+};
+
+
+myData.forEach(element => {
+        if((element["intensity"] != "") && (element["country"] != "")
+                && (element["topic"] != "" )) {
+                    heat2[element["topic"]][element["country"]] += element["intensity"];
+        } 
+});
+
+let z2 = [];
+for (let i=0; i < unique_topics.length; i++) {
+    z2[i] = [];
+    for (let j=0; j < unique_countries.length; j++) {
+        z2[i][j] = heat2[unique_topics[i]][unique_countries[j]];
+    }
+}
+
+let heat3 = [];
+for (pestle in unique_pestles) {
+    heat3[unique_pestles[pestle]] = [];
+    for (country in unique_countries) {
+        heat3[unique_pestles[pestle]][unique_countries[country]] = 0;
+    }
+};
+
+
+myData.forEach(element => {
+        if((element["intensity"] != "") && (element["country"] != "")
+                && (element["pestle"] != "" )) {
+                    heat3[element["pestle"]][element["country"]] += element["intensity"];
+        } 
+});
+
+let z3 = [];
+for (let i=0; i < unique_pestles.length; i++) {
+    z3[i] = [];
+    for (let j=0; j < unique_countries.length; j++) {
+        z3[i][j] = heat3[unique_pestles[i]][unique_countries[j]];
     }
 }
 
@@ -60,16 +121,45 @@ let colorscaleValue = [
     [1, '#ff0000']
   ];
 
-const data1 = [{
-    x: unique_countries,
-    y: unique_sectors,
-    z: z,
-    type: 'heatmap',
-    colorscale: colorscaleValue,
-}];
+function change(i) {
+    if (i === 0) {
+        return {
+            y: unique_sectors,
+            z: z1,
+            x: unique_countries,
+            type: 'heatmap',
+            colorscale: colorscaleValue,
+            layout1,
+            responsive,
+            visible: i === 0,
+        }
+    } else if (i === 1) {
+        return {
+            y: unique_topics,
+            z: z2,
+            x: unique_countries,
+            type: 'heatmap',
+            colorscale: colorscaleValue,
+            layout1,
+            responsive,
+            visible: i === 0,
+        }
+    } else {
+        return {
+            y: unique_pestles,
+            z: z3,
+            x: unique_countries,
+            type: 'heatmap',
+            colorscale: colorscaleValue,
+            layout1,
+            responsive,
+            visible: i === 0,
+        }
+    }
+}
 
 const layout1 = {
-    title: "Heatmap of Sector wise Activity",
+    title: "Heatmap Activity",
     font: {size: 12},
     yaxis: {
         automargin: true
@@ -78,11 +168,25 @@ const layout1 = {
 
 const responsive = {responsive: true};
 
-Plotly.plot(FIRST_TESTER,
-    data1,
-    layout1,
-    responsive
-);
+Plotly.plot(FIRST_TESTER, [0,1,2].map(change), {
+    updatemenus: [{
+        y: 1.2,
+        yanchor: 'top',
+        buttons: [{
+            method: 'restyle',
+            args: ['visible', [true, false, false]],
+            label: 'Sectors'
+        }, {
+            method: 'restyle',
+            args: ['visible', [false, true, false]],
+            label: 'Topics'
+        }, {
+            method: 'restyle',
+            args: ['visible', [false, false, true]],
+            label: 'Pestles'
+        }],
+    }],
+});
 
 const data2 = [{
     x: intensity,
