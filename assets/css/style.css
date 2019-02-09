@@ -1,9 +1,12 @@
-#first_tester {
+#heatmap {
     margin-bottom: 100px;
-    height: 600px;
 }
 
 #second_tester {
     max-width: 600px;
     height: 400px;
+}
+
+h1 {
+    font-family: 'Roboto Slab', serif;
 }

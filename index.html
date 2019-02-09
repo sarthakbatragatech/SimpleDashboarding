@@ -8,7 +8,8 @@
 
         <title>BlackCoffer Dashboard</title>
 
-        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/style.css">
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script 
             src="https://code.jquery.com/jquery-3.3.1.min.js" 
@@ -19,13 +20,18 @@
     </head>
 
     <body>
-
-        <div id="first_tester"></div>
+        <div id="heatmap"></div>
+        <div id="buttons">
+            <select id='x_selector'>
+                <option>Country</option>
+                <option>City</option>
+            </select>
+        </div>
         <div id="second_tester"></div>
         <div id="third_tester"></div>
 
-        <script src="scripts/dataparse.js"></script>
-        <script src="scripts/test.js"></script>
+        <script src="assets/js/dataparse.js"></script>
+        <script src="assets/js/test.js"></script>
 
     </body>
 </html>

@@ -2,7 +2,7 @@ console.log("Parsing Data Running...")
 
 var myData;
 
-const dataURL = "../data/jsondata.json";
+const dataURL = "../assets/data/jsondata.json";
 
 $.ajax({
     url: dataURL,

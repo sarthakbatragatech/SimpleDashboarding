@@ -1,8 +1,8 @@
 console.log('Plotting Script Running...')
 
-FIRST_TESTER = document.getElementById('first_tester');
-SECOND_TESTER = document.getElementById('second_tester');
-THIRD_TESTER = document.getElementById('third_tester');
+let CANVAS = document.getElementById('heatmap');
+let SECOND_TESTER = document.getElementById('second_tester');
+let THIRD_TESTER = document.getElementById('third_tester');
 
 let intensity = [];
 let countries = [];
@@ -168,7 +168,7 @@ const layout1 = {
 
 const responsive = {responsive: true};
 
-Plotly.plot(FIRST_TESTER, [0,1,2].map(change), {
+Plotly.plot(CANVAS, [0,1,2].map(change), {
     updatemenus: [{
         y: 1.2,
         yanchor: 'top',
