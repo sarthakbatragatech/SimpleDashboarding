@@ -4,6 +4,12 @@ let CANVAS = document.getElementById('heatmap');
 let SECOND_TESTER = document.getElementById('second_tester');
 let THIRD_TESTER = document.getElementById('third_tester');
 
+$('select').on('change', function() {
+    if(this.value==1) {
+        alert( "Country" );
+    } else alert("City")
+  });
+
 let intensity = [];
 let countries = [];
 let sectors = [];
