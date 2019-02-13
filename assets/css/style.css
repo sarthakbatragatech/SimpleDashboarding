@@ -1,5 +1,7 @@
 #heatmap {
     margin-bottom: 100px;
+    margin-left: 50px;
+    max-width: 800px;
 }
 
 #second_tester {

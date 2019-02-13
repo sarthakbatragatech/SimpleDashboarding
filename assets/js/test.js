@@ -165,7 +165,7 @@ function change(i) {
 }
 
 const layout1 = {
-    title: "Heatmap Activity",
+    title: "Heatmap of Intensity and Countries",
     font: {size: 12},
     yaxis: {
         automargin: true
@@ -271,7 +271,7 @@ const bar_data = [{
 }];
 
 const layout3 = {
-    title: "Third Chart",
+    title: "Data distribution",
     font: {size: 12},
 };
 
